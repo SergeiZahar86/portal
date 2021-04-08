@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<nav class="navbar navbar-expand-lg  ih-navbar" th:fragment="mainmenu">
+
+    <span class="navbar-brand mr-3 text-danger"><img th:src="@{/images/logo-sm.png}" width="24" /> Indas Cube</span>
+
+    <ul class="navbar-nav mr-auto">
+        <li id="tablePartNavbar" class="nav-item">
+            <a class="nav-link white-text font-Calibri-14" th:href="@{/tablePart}">Партии</a>
+        </li>
+        <li id="catalogsNavbar" sec:authorize="hasRole('ROLE_portalAdmin')" class="nav-item">
+            <a class="nav-link white-text font-Calibri-14" th:href="@{/catalogs}">Справочники</a>
+        </li>
+        <li id="userEditNavbar" sec:authorize="hasRole('ROLE_portalAdmin')" class="nav-item">
+            <a class="nav-link white-text font-Calibri-14" th:href="@{/user}">Редактирование пользователей</a>
+        </li>
+        <li id="screenNavbar" class="nav-item">
+            <a class="nav-link white-text font-Calibri-14" th:href="@{/screen}">Экран</a>
+        </li>
+    </ul>
+    <span class="navbar-text">
+        <label class="mr-4 arm-name">Портал</label>
+        <!--        <input type="hidden font-Calibri-14" id="ih-user" th:value="${#httpServletRequest.remoteUser}"/>-->
+        <label class="mr-2 font-Calibri-14">[[${#httpServletRequest.remoteUser}]]</label>
+<!--        <label class ="mr-2">-->
+<!--            -->
+<!--        </label>-->
+        <a th:href="@{/changepassword}" class="btn btn-sm ih-btn-primary mr-2" title="Сменить пароль" style="padding: 0.45rem .5rem;">
+                <i class="fa fa-key"></i>
+            </a>
+        <a class="btn btn-sm ih-btn-primary" th:href="@{/logout}">
+            Выход <i class="fa fa-sign-out-alt"></i>
+        </a>
+    </span>
+</nav>
+</html>

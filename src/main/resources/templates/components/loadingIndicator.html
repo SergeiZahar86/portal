@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Индикатор загрузки -->
+<div class="d-none" id="ih-loader" th:fragment="ih-loader">
+    <script th:src="@{/js/loadingIndicator.js}"></script>
+    <div class="spinner-border text-info" role="status">
+        <span class="sr-only">Загрузка...</span>
+    </div>
+</div>
+<!---->
+</html>

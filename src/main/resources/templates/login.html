@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  lang="ru">
+<head>
+    <title>Вход в систему</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" th:href="@{/fonts/font-awesome-5.12.1/css/all.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/vendor/bootstrap/4.3/css/bootstrap.min.css}">
+    <script th:src="@{/vendor/jquery/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{/vendor/bootstrap/js/popper.min.js}"></script>
+    <script th:src="@{/vendor/bootstrap/4.3/js/bootstrap.min.js}"></script>
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" th:href="@{/favicons/apple-icon.png}" sizes="180x180">
+    <link rel="icon" th:href="@{/favicons/favicon-32x32.png}" sizes="32x32" type="image/png">
+    <link rel="icon" th:href="@{/favicons/favicon-16x16.png}" sizes="16x16" type="image/png">
+    <link rel="icon" th:href="@{/favicons/favicon.ico}">
+
+</head>
+<body class="content-v">
+
+<!--Главное меню-->
+<nav class="navbar navbar-expand-lg  ih-navbar dark-background-color white-text">
+    <span class="navbar-brand mr-3 text-danger"><img th:src="@{/images/logo-sm.png}" width="24" /> Indas Сube</span>
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="#">&nbsp;</a>
+        </li>
+    </ul>
+    <span class="navbar-text"></span>
+</nav>
+<!---->
+<div class="container-fluid">
+    <div class="row  align-items-center justify-content-center" id="changePwdHolder" style="min-height:38rem">
+        <div class="col-md-5 col-lg-4 col-xl-3">
+            <h5>Вход в систему</h5>
+            <form  name="f" th:action="@{/security_check}" method="post" class="validate-form" novalidate autocomplete="on">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <div class="form-group">
+                    <label>Логин</label>
+                    <input class="form-control validate-input" type="text" required id="login" name="login"/>
+                    <div class="invalid-feedback">Введите логин</div>
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <div>
+                        <input class="form-control validate-input" type="password" required id="password" name="password"/>
+                        <i class="fa fa-eye ih-eye-icon" id="show_password"></i>
+                        <div class="invalid-feedback">Введите пароль</div>
+                    </div>
+                </div>
+
+                <div class="alert alert-danger" th:if="${param.error!=null}">
+                    <span th:text="'Ошибка при попытке авторизации: ' + ${session?.SPRING_SECURITY_LAST_EXCEPTION?.message}"/>
+                </div>
+                <!--<div class="alert alert-success"  th:if="${param.logout!=null}">
+                    Вы вышли из системы.
+                </div>-->
+
+                <button class="btn ih-btn-primary btn-block" type="submit" value="Login">
+                    Войти
+                </button>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--===============================================================================================-->
+
+<script type="text/javascript" th:src="@{${'/js/login.js?dt='+#dates.createNow().toInstant()}}"></script>
+
+</body>
+</html>

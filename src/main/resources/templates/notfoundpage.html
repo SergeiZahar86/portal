@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head     th:replace="~{components/head :: head(~{::link},~{::script})}">
+    <script th:inline="javascript"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{${'/css/main.css?dt='+#dates.createNow().toInstant()}}"/>
+</head>
+<body class="content-v">
+
+<!-- Индикатор загрузки -->
+<div class="d-none" id="ih-loader">
+    <div class="spinner-border text-info" role="status">
+        <span class="sr-only">Загрузка...</span>
+    </div>
+</div>
+<!---->
+
+<!--Главное меню-->
+<div th:replace="~{components/loadingIndicator}">
+</div>
+<!---->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div class="alert alert-danger d-none" id="mainTblAlert" role="alert">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h2 class="my-3 text-center" id="ihAccessDeniedH2Label">Страница не найдена</h2>
+            <a class="col-2 nav-link text-center btn btn-success" href="javascript:history.back()"><h3 class="text-white">Перейти обратно</h3></a>
+        </div>
+    </div>
+
+    <div>
+        Failed URL: <span th:text="${url}"></span>
+        Exception:   <span th:text="${exception.message}"></span>
+        <div class="n-none">
+            <th:block th:each="ste : ${exception.stackTrace}">
+                <div th:text="${ste}"></div>
+            </th:block>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,363 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+	<head th:replace="~{components/head :: head(~{::link},~{::script})}">
+		<title>Партии</title>
+		<!--    <link rel="stylesheet" type="text/css" th:href="@{/css/tablePart.css}">-->
+		<link rel="stylesheet" type="text/css" th:href="@{/css/tablePart.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+		<script th:src="@{/js/catalogs.js}"></script>
+		<script th:src="@{/js/dnone.js}"></script>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css"
+		      th:href="@{/fonts/font-awesome-5.12.1/css/all.min.css}">
+		<link rel="stylesheet" type="text/css"
+		      th:href="@{/vendor/bootstrap/4.3/css/bootstrap.min.css}">
+		<link rel="stylesheet" type="text/css"
+		      th:href="@{/vendor/select2/select2.css}">
+		<link rel="stylesheet" type="text/css"
+		      th:href="@{/fonts/font-awesome-5.12.1/css/all.min.css}">
+		<link rel="stylesheet" type="text/css"
+		      th:href="@{/fonts/font-awesome-5.12.1/css/all.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/modal_window.css}">
+		<script th:src="@{/vendor/jquery/jquery-3.4.1.min.js}"></script>
+		<script th:src="@{js/modal_window.js}"></script>
+		<script th:src="@{/vendor/bootstrap/js/popper.min.js}"></script>
+		<script th:src="@{/vendor/select2/select2.js}"></script>
+		<script th:src="@{/vendor/bootstrap/4.3/js/bootstrap.min.js}"></script>
+		<script th:src="@{/vendor/daterangepicker/moment.min.js?v=3.1}"></script>
+		<!-- Favicons -->
+		<link rel="apple-touch-icon" th:href="@{/favicons/apple-icon.png}"
+		      sizes="180x180">
+		<link rel="icon" th:href="@{/favicons/favicon-32x32.png}" sizes="32x32"
+		      type="image/png">
+		<link rel="icon" th:href="@{/favicons/favicon-16x16.png}" sizes="16x16"
+		      type="image/png">
+		<link rel="icon" th:href="@{/favicons/favicon.ico}">
+		<!--////////////////////////////////////////////////////////////////////////////////////////-->
+
+		<link rel="stylesheet" type="text/css"
+		      th:href="@{/css/catalogs.css}">
+		<!--////////////////////////////////////////////////////////////////////////////////////////-->
+
+	</head>
+	<body class="content-v">
+		<div th:replace="~{components/loadingIndicator}">
+		</div>
+		<!--Главное меню-->
+		<nav th:replace="~{components/mainMenu}">
+		</nav>
+		<div class="row">
+			<div class="col-4">
+				<div class="col main">
+					<div class="row">
+						<div class="col">
+							<label class="lbl-1">Справочники</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col select1">
+							<select id="catal" class="select2">
+								<option selected>Укажите необходимый справочник...</option>
+							</select>
+						</div>
+					</div>
+					<div class="col select1"></div>
+				</div>
+				<div class="col" id="timerR">
+				</div>
+			</div>
+			<div class="col-4 mx-auto">
+				<div class="alert alert-danger changepass-alert alertT d-none mx-auto" role="alert" id="alertError">
+					Ошибка. Попробуйте ещё раз
+				</div>
+				<div class="alert alert-success changepass-alert alertT d-none mx-auto" role="alert" id="alertOk">
+					Операция прошла успешно
+				</div>
+			</div>
+			<div class="col-4"></div>
+		</div>
+		<div class="container-fluid">
+
+
+			<!-- Таблица справочника материалов  ///////////////////////////////////////////////////////////////////////////////////-->
+			<div class="row justify-content-center d-none row-table div-extreme" id="tab1">
+				<!--- Таблица ---------------------------------------------------------------->
+				<div class="col">
+					<div class="col row justify-content-end">
+						<a id="popupAddMatBtn" class="popup-open btn btn-success btn-sm btn-add" href="#">Добавить
+							запись</a>
+						<!-- Модальное окно -->
+						<div class="popup-fade" id="popupAddMat">
+							<div class="popup ">
+								<div class="modal-header">
+									<h5 class="modal-title" id="staticBackdropLabel6">Окно добавления записи</h5>
+								</div>
+								<div class="modal-body">
+									<div class="input-group input-group-sm mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="inputGroup-sizing-sm66">Текст</span>
+										</div>
+										<input type="text" class="form-control" aria-label="Sizing example input"
+										       aria-describedby="inputGroup-sizing-sm" id="text_mat6">
+									</div>
+								</div>
+								<div class="modal-footer">
+									<a id="popup-close_id0" class="popup-close btn btn-secondary btn-sm" href="#">Закрыть</a>
+									<a id="popup-close_id_" class="popup-close btn btn-success btn-sm btn-add" href="#">Добавить</a>
+								</div>
+							</div>
+						</div>
+						<!-- Modal -->
+						<div class="popup-fade" id="popupChangeMat">
+							<div class="popup ">
+								<div class="modal-header">
+									<h5 class="modal-title" id="staticBackdropLabel7">Окно изменения записи</h5>
+								</div>
+								<div class="modal-body">
+									<div class="input-group input-group-sm mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="inputGroup-sizing-sm67">Текст</span>
+										</div>
+										<input type="text" class="form-control" aria-label="Sizing example input"
+										       aria-describedby="inputGroup-sizing-sm" id="text_mat7">
+									</div>
+								</div>
+								<div class="modal-footer">
+									<a id="popup-close_id2" class="popup-close btn btn-secondary btn-sm" href="#">Закрыть</a>
+									<a id="popup-close_id1" class="popup-close btn btn-success btn-sm btn-add" href="#">Принять</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<table class="table-sm table-striped font-Calibri-14" id="tPart">
+						<thead class="dark-background-color white-text table-border">
+							<tr>
+								<td class="table-dark td"><span>пп №</span></td>
+								<td class="table-dark td"><span>Название материала</span></td>
+								<td class="table-dark td"><span>Редактирование</span></td>
+								<!--<td class="table-dark td"><span>Удаление</span></td>-->
+							</tr>
+						</thead>
+						<tbody id="tbody_mat">
+							<tr>
+								<td class="td">1</td>
+								<td class="td">Просушенный каменный уголь</td>
+								<td class="td">
+									<button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
+									        data-target="#change_record">Изменить
+									</button>
+								</td>
+							</tr>
+						</tbody>
+						<!-- Modal -->
+					</table>
+				</div>
+
+				<div class="col div-extreme"></div>
+			</div>
+
+
+			<!-- Таблица справочника контрагентов /////////////////////////////////////////////////////////////////////////////////-->
+			<div class="row justify-content-center d-none row-table div-extreme" id="tab2">
+				<!--- Таблица ---------------------------------------------------------------->
+				<div class="col">
+					<div class="col row justify-content-end">
+						<a id="popupAddContrBtn" class="popup-open btn btn-success btn-sm btn-add" href="#">Добавить
+							запись</a>
+						<!-- Модальное окно -->
+						<div class="popup-fade" id="popupAddContr">
+							<div class="popup ">
+								<div class="modal-header">
+									<h5 class="modal-title" id="staticBackdropLabel8">Окно добавления записи</h5>
+								</div>
+								<div class="modal-body">
+									<div class="row">
+
+										<div class="input-group input-group-sm mb-3 container">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="inputGroup-sizing-sm668">Текст</span>
+											</div>
+											<input type="text" class="form-control" aria-label="Sizing example input"
+											       aria-describedby="inputGroup-sizing-sm" id="text_mat68">
+										</div>
+									</div>
+									<div class="row container">
+										<div class="col">
+											<input class="form-check-input" id="checkBox2" type="checkbox">Грузоотправитель
+										</div>
+									</div>
+									<div class="row container">
+										<div class="col container">
+											<input class="form-check-input" id="checkBox3" type="checkbox">Грузополучатель
+										</div>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<a id="popup-close_id08" class="popup-close btn btn-secondary btn-sm" href="#">Закрыть</a>
+									<a id="popup-close_id_8" class="popup-close btn btn-success btn-sm btn-add"
+									   href="#">Добавить</a>
+								</div>
+							</div>
+						</div>
+						<!-- Modal -->
+						<div class="popup-fade" id="popupChangeContr">
+							<div class="popup ">
+								<div class="modal-header">
+									<h5 class="modal-title" id="staticBackdropLabel78">Окно изменения записи</h5>
+								</div>
+								<div class="modal-body">
+									<div class="row">
+										<div class="input-group input-group-sm mb-3 container">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="inputGroup-sizing-sm68">Текст</span>
+											</div>
+											<input type="text" class="form-control" aria-label="Sizing example input"
+											       aria-describedby="inputGroup-sizing-sm" id="text_mat69">
+										</div>
+									</div>
+									<div class="row container">
+										<div class="col">
+											<input class="form-check-input" id="checkBox4" type="checkbox">Грузоотправитель
+										</div>
+									</div>
+									<div class="row container">
+										<div class="col container">
+											<input class="form-check-input" id="checkBox5" type="checkbox">Грузополучатель
+										</div>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<a id="popup-close_id28" class="popup-close btn btn-secondary btn-sm" href="#">Закрыть</a>
+									<a id="popup-close_id18" class="popup-close btn btn-success btn-sm btn-add"
+									   href="#">Принять</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<table class="table-sm table-striped font-Calibri-14" id="tPart8">
+						<thead class="dark-background-color white-text table-border">
+							<tr>
+								<td class="table-dark td"><span>пп №</span></td>
+								<td class="table-dark td"><span>Контрагент</span></td>
+								<td class="table-dark td"><span>Грузоотправитель</span></td>
+								<td class="table-dark td"><span>Грузополучатель</span></td>
+								<td class="table-dark td"><span>Редактирование</span></td>
+								<!--<td class="table-dark td"><span>Удаление</span></td>-->
+							</tr>
+						</thead>
+						<tbody id="tbody_Contr8">
+							<tr>
+								<td class="td">1</td>
+								<td class="td">Просушенный каменный уголь</td>
+								<td class="td">ok</td>
+								<td class="td">no</td>
+								<td class="td">
+									<button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
+									        data-target="#change_record">Изменить
+									</button>
+								</td>
+							</tr>
+						</tbody>
+						<!-- Modal -->
+					</table>
+				</div>
+
+				<div class="col div-extreme"></div>
+			</div>
+
+
+			<!-- Таблица справочника причин неаттестации  ///////////////////////////////////////////////////////////////////////////////////-->
+			<div class="row justify-content-center d-none row-table div-extreme" id="tab3">
+				<!--- Таблица ---------------------------------------------------------------->
+				<div class="col">
+					<div class="col row justify-content-end">
+						<a id="popupAddСausesBtn" class="popup-open btn btn-success btn-sm btn-add" href="#">Добавить
+							запись</a>
+						<!-- Модальное окно -->
+						<div class="popup-fade" id="popupAddСauses">
+							<div class="popup ">
+								<div class="modal-header">
+									<h5 class="modal-title">Окно дабавления записи</h5>
+								</div>
+								<div class="modal-body">
+									<div class="input-group input-group-sm mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text">Текст</span>
+										</div>
+										<input type="text" class="form-control" aria-label="Sizing example input"
+										       aria-describedby="inputGroup-sizing-sm" id="text_mat5">
+									</div>
+								</div>
+								<div class="modal-footer">
+									<a id="popup-close_id5" class="popup-close btn btn-secondary btn-sm" href="#">Закрыть</a>
+									<a id="popup-close_id51" class="popup-close btn btn-success btn-sm btn-add"
+									   href="#">Добавить</a>
+								</div>
+							</div>
+						</div>
+						<!-- Modal -->
+						<div class="popup-fade" id="popupChangeСauses">
+							<div class="popup ">
+								<div class="modal-header">
+									<h5 class="modal-title">Окно изменения записи</h5>
+								</div>
+								<div class="modal-body">
+									<div class="input-group input-group-sm mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="inputGroup-sizing-sm5">Текст</span>
+										</div>
+										<input type="text" class="form-control" aria-label="Sizing example input"
+										       aria-describedby="inputGroup-sizing-sm" id="text_mat51">
+									</div>
+								</div>
+								<div class="modal-footer">
+									<a id="popup-close_id52" class="popup-close btn btn-secondary btn-sm" href="#">Закрыть</a>
+									<a id="popup-close_id53" class="popup-close btn btn-success btn-sm btn-add"
+									   href="#">Принять</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<table class="table-sm table-striped font-Calibri-14" id="tPart5">
+						<thead class="dark-background-color white-text table-border">
+							<tr>
+								<td class="table-dark td"><span>пп №</span></td>
+								<td class="table-dark td"><span>Причина</span></td>
+								<td class="table-dark td"><span>Редактирование</span></td>
+								<!--<td class="table-dark td"><span>Удаление</span></td>-->
+							</tr>
+						</thead>
+						<tbody id="tbody_Сauses">
+							<tr>
+								<td class="td">1</td>
+								<td class="td">Сход с рельс</td>
+								<td class="td">
+									<button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"
+									        data-target="#change_record">Изменить
+									</button>
+								</td>
+							</tr>
+						</tbody>
+						<!-- Modal -->
+					</table>
+				</div>
+
+				<div class="col div-extreme"></div>
+			</div>
+
+
+		</div>
+
+		<!--<script src="https://yandex.st/jquery/2.1.1/jquery.min.js"></script>-->
+	</body>
+</html>
+

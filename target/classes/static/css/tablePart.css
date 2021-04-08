@@ -1,0 +1,78 @@
+.bd-sidebar {
+    border-right: 1px solid rgba(0,0,0,.1);
+}
+/*---------------------------------------------------------------*/
+.table-border{
+    border-color: #2A3F54;
+    border-style: solid;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.find-button{
+    place-content: center;
+}
+
+/*---------------------------------------------------------------*/
+
+.padding-top-bottom-5 {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.padding-left-right-10 {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.table-parts-max-height{
+    height: 900px;
+    max-height: 900px;
+}
+
+/*---------------------------------------------------------------*/
+
+.part-info-div {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.remove-padding{
+    padding-right: inherit;
+    padding-left: inherit;
+}
+
+/*table.scroll {*/
+/*    !* width: 100%; *! !* Optional *!*/
+/*    !* border-collapse: collapse; *!*/
+/*    border-spacing: 0;*/
+/*    border: 2px solid black;*/
+/*}*/
+
+/*table.scroll tbody,*/
+/*table.scroll thead { display: block; }*/
+
+/*thead tr th {*/
+/*    height: 30px;*/
+/*    line-height: 30px;*/
+/*    !* text-align: left; *!*/
+/*}*/
+
+/*table.scroll tbody {*/
+/*    height: 100px;*/
+/*    overflow-y: auto;*/
+/*    overflow-x: hidden;*/
+/*}*/
+
+/*tbody { border-top: 2px solid black; }*/
+
+/*tbody td, thead th {*/
+/*    !* width: 20%; *! !* Optional *!*/
+/*    border-right: 1px solid black;*/
+/*    !* white-space: nowrap; *!*/
+/*}*/
+
+/*tbody td:last-child, thead th:last-child {*/
+/*    border-right: none;*/
+/*}*/
+/*---------------------------------------------------------------*/

@@ -1,0 +1,12 @@
+.ih-eye-icon{
+    float: right;
+    margin-right: 10px;
+    margin-top: -25px;
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.ih-eye-icon:hover{
+    color:#AE1D2D;
+}

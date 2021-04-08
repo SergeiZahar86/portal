@@ -1,0 +1,17 @@
+.padding-top-bottom-5 {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.padding-left-right-10 {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.canvas-div {
+    width:100%;
+    height:100%;
+}
+canvas {
+    display:block;
+}

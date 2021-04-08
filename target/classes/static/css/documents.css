@@ -1,0 +1,19 @@
+#ih-doc-area{
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    min-height: 600px;
+}
+
+span{
+    white-space:normal !important;
+}
+
+#ih-doc-area span{
+    white-space: pre-wrap;
+}
+
+.report-iframe{
+    width:100%;
+    height:720px;
+}

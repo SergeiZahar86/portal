@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head     th:replace="~{components/head :: head(~{::link},~{::script})}">
+    <script th:inline="javascript"></script>
+<!--    <script type="text/javascript" th:src="@{${'/js/rfid/RfidReader.js?dt='+#dates.createNow().toInstant()}}"></script>-->
+<!--    <script type="text/javascript" th:src="@{${'/js/util.js?dt='+#dates.createNow().toInstant()}}"></script>-->
+<!--    <script type="text/javascript" th:src="@{${'/js/changepwd.js?dt='+#dates.createNow().toInstant()}}"></script>-->
+    <link rel="stylesheet" type="text/css" th:href="@{${'/css/main.css?dt='+#dates.createNow().toInstant()}}"/>
+    <script th:src="@{/js/changepwdpg.js}"></script>
+    <script th:src="@{/js/dnone.js}"></script>
+</head>
+<body class="content-v">
+
+<div th:replace="~{components/loadingIndicator}">
+</div>
+
+<!--Главное меню -->
+<nav th:replace="~{components/mainMenu}">
+</nav>
+<!---->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div class="alert alert-danger d-none" id="mainTblAlert" role="alert">
+            </div>
+        </div>
+    </div>
+    <div style="min-height:38rem">
+        <div class="row  align-items-center justify-content-center" id="changePwdHolder">
+            <div class="col-md-5 col-lg-4 col-xl-3">
+                <h5>Смена пароля</h5>
+                <form>
+                    <div class="form-group">
+                        <label>Старый пароль</label>
+                        <input type="password" required class="form-control" id="current_password"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Новый пароль</label>
+                        <input type="password" class="form-control" id="new_password"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Подтверждение</label>
+                        <input type="password" class="form-control" id="new_password_copy"/>
+                    </div>
+                    <!--               <div class="form-group">-->
+                    <!--                   <label>Код пропуска</label>-->
+                    <!--                   <input disabled class="form-control" id="proxy_card"/>-->
+                    <!--                   <small id="proxy_card_text" class="form-text text-secondary">Номер пропуска не определён</small>-->
+                    <!--               </div>-->
+                    <div class="form-group">
+                        <div class="alert alert-danger changepass-alert d-none" role="alert" id="notEqualsErrorMessage">
+                            Подтверждение пароля не совпадает с новым паролем
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button"
+                                class="btn btn-block ih-btn-primary"
+                                id="changePwdBtn"
+                                onclick="onClickChangePassword()">Сменить пароль</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row  align-items-center justify-content-center d-none" id="successChangePwdHolder">
+            <div class="col-md-5 col-lg-4 col-xl-3">
+                <div class="alert alert-success" role="alert">
+                    <h5 class="text-success"><i class="fa fa-check"></i> Пароль успешно изменён</h5>
+                </div>
+            </div>
+        </div>
+        <div class="row  align-items-center justify-content-center d-none" id="errorChangePwdHolder">
+            <div class="col-md-5 col-lg-4 col-xl-3">
+                <div class="alert alert-success" role="alert">
+                    <h5 class="text-success"><i class="fa fa-check"></i> Изменение пароля произошло с ошибкой</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--    <div class="row  align-items-center justify-content-center d-none" id="successChangePwdHolder" style="min-height:38rem">-->
+<!--        -->
+<!--    </div>-->
+
+</div>
+
+</body>
+</html>

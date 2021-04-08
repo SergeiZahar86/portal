@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head     th:replace="~{components/head :: head(~{::link},~{::script})}">
+    <script th:src="@{/vendor/datatables/DataTables-1.10.18/js/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/vendor/datatables/DataTables-1.10.18/js/dataTables.bootstrap4.min.js}"></script>
+    <script th:src="@{/vendor/datatables/datetime-moment.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/vendor/datatables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/vendor/datatables/FixedHeader-3.1.4/css/fixedHeader.bootstrap4.min.css}">
+    <script th:inline="javascript"></script>
+    <script type="text/javascript" th:src="@{${'/vendor/pdfobject/pdfobject.min.js?dt='+#dates.createNow().toInstant()}}"></script>
+    <script type="text/javascript" th:src="@{${'/vendor/ihspinner/ihspinner.js?dt='+#dates.createNow().toInstant()}}"></script>
+    <script type="text/javascript" th:src="@{${'/js/util.js?dt='+#dates.createNow().toInstant()}}"></script>
+    <script type="text/javascript" th:src="@{${'/js/docs.js?dt='+#dates.createNow().toInstant()}}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{${'/css/main.css?dt='+#dates.createNow().toInstant()}}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{${'/css/documents.css?dt='+#dates.createNow().toInstant()}}"/>
+</head>
+<body class="content-v">
+<!-- Индикатор загрузки -->
+<div class="d-none" id="ih-loader">
+    <div class="spinner-border text-info" role="status">
+        <span class="sr-only">Загрузка...</span>
+    </div>
+</div>
+<!---->
+
+    <!--Главное меню-->
+    <nav th:replace="~{components/mainMenu}">
+    </nav>
+    <!---->
+    <div class="container-fluid mt-2">
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-danger d-none" id="mainTblAlert" role="alert">
+                </div>
+            </div>
+        </div>
+        <!-- Doc params -->
+        <div class="row mb-2">
+            <div class="col">
+                <form class="form-inline">
+                    <div class="form-group">
+                    <select class="form-control mr-sm-2" id="ih-doc-select">
+                        <option value=""></option>
+                        <option th:each="instance : ${docs}" th:value="${instance.key}" th:text="${instance.value}"/>
+
+                        <!-- <option value="locomotive">Сводка времени работы локомотива</option>
+                         <option value="unloadtransport">Сводка по выгрузке автотранспорта</option>
+                         <option value="transport">Сводка по транспорту</option>-->
+                    </select>
+                    </div>
+                    <div id="ih-doc-params-holder" class="form-group row ml-2 mr-2">
+
+                    </div>
+                    <div class="form-group">
+                    <button type="button" class="btn ih-btn-success mr-sm-2" id="showHtml">Просмотр <i class="fas fa-file-alt"></i></button>
+                    </div>
+                    <div class="form-group">
+                    <button type="button" class="btn ih-btn-success mr-sm-2" id="downloadXls">Сохранить .xls <i class="fa fa-file-excel"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- -->
+
+        <!-- Doc area -->
+        <div class="row">
+            <div class="col">
+                <div id="ih-doc-area"></div>
+            </div>
+        </div>
+        <!-- -->
+    </div>
+
+    <!--Modal-->
+    <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="addItemModal"  data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Добавить запись</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="modalContent">
+                        <form id="dlgForm" class="was-validated">
+                        </form>
+                        <div class="alert alert-danger" role="alert">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn ih-btn-success" id="ih-save-item">Сохранить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

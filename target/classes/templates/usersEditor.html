@@ -1,0 +1,161 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      lang="ru">
+<head th:replace="~{components/head :: head(~{::link},~{::script})}">
+    <title>Партии</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/usersEditor.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+    <script th:src="@{/js/usersEditor.js}"></script>
+    <script th:src="@{/js/dnone.js}"></script>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" th:href="@{/fonts/font-awesome-5.12.1/css/all.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/vendor/bootstrap/4.3/css/bootstrap.min.css}">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/fonts/font-awesome-5.12.1/css/all.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/fonts/font-awesome-5.12.1/css/all.css}">
+
+    <script th:src="@{/vendor/jquery/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{/vendor/bootstrap/js/popper.min.js}"></script>
+    <script th:src="@{/vendor/bootstrap/4.3/js/bootstrap.min.js}"></script>
+    <script th:src="@{/vendor/daterangepicker/moment.min.js?v=3.1}"></script>
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" th:href="@{/favicons/apple-icon.png}" sizes="180x180">
+    <link rel="icon" th:href="@{/favicons/favicon-32x32.png}" sizes="32x32" type="image/png">
+    <link rel="icon" th:href="@{/favicons/favicon-16x16.png}" sizes="16x16" type="image/png">
+    <link rel="icon" th:href="@{/favicons/favicon.ico}">
+
+</head>
+<body class="content-v">
+
+<div th:replace="~{components/loadingIndicator}">
+</div>
+
+<!--Главное меню-->
+<nav th:replace="~{components/mainMenu}">
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-3 col-xl-2 bd-sidebar">
+            <div class="row padding-top-bottom-5">
+                <div class="overflow-auto table-parts-max-height col-12">
+                    <table class="table table-striped table-border" id="tUsers">
+                        <thead>
+                        <tr class="container">
+                            <td class="table-dark">
+                                <div class="row justify-content-around">
+                                    <span>Пользователи</span>
+                                    <button type="button" class="btn btn-success" onclick="onClickNewUserOnForm()">
+                                        <i class="fa fa-plus-square"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        </thead>
+                        <tbody id="tbodyUsers" class="font-Calibri-14">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-12 col-md-10 pl-md-4 bd-content">
+            <div class="row justify-content-center">
+                <div class="col-8 d-none" id="userFormEdit">
+                    <div class="row padding-top-bottom-5">
+                        <div class="col-6">
+                            <button type="button" class="btn btn-success" onclick="onClickSaveUser()">
+                                Сохранить изменения
+                            </button>
+                        </div>
+                        <div class="col-6">
+                            <div class="alert alert-danger d-none" role="alert" id="errorSaveMessage">
+                                Данные не сохранены
+                            </div>
+                            <div class="alert alert-success d-none" role="alert" id="successSaveMessage">
+                                <h5 class="text-success"><i class="fa fa-check"></i>Данные успешно обновлены</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row padding-top-bottom-5">
+                        <div class="col-12">
+                            <div>
+                                Фамилия Имя Отчество
+                            </div>
+                            <input type="text" id="fio" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row padding-top-bottom-5">
+                        <div class="col-12">
+                            <div>
+                                Логин
+                            </div>
+                            <input type="text" id="login" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row padding-top-bottom-5">
+                        <div class="col-6">
+                            <div>
+                                Пароль
+                            </div>
+                            <input type="password" id="password" class="form-control">
+                        </div>
+                        <div class="col-6">
+                            <div>
+                                Повтор пароля
+                            </div>
+                            <input type="password" id="Rpassword" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row padding-top-bottom-5">
+                        <div class="col-6">
+                            <div class="alert alert-danger changepass-alert d-none" role="alert" id="notEqualsErrorMessage">
+                                Введенные пароли не совпадают
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row padding-top-bottom-5">
+                        <div class="col-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="isTemporaryPassword">
+                                <label class="form-check-label" for="isTemporaryPassword">
+                                    Временный пароль
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row padding-top-bottom-5 d-none" id="formDateTemporaryPassword">
+                        <div class="col-6">
+                            <span>Время окончания:</span>
+                            <input class="form-control validate-input" type="datetime-local" id="endDateTemporaryPassword"/>
+                        </div>
+                    </div>
+                    <div class="row padding-top-bottom-5">
+                        <div class="col-12">
+                            <div class="row padding-top-bottom-5">
+                                <div class="col-3">
+                                    <span>Список ролей</span>
+                                </div>
+                                <div class="col-9 input-group">
+                                    <select class="custom-select" id="selectRole" aria-label="Example select with button addon">
+                                    </select>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-success" id="addRole" onclick="onClickAddRole()" type="button">Добавить</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="padding-top-bottom-5" id="roles">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

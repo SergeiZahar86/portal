@@ -1,0 +1,48 @@
+.main{
+    background-color: transparent;
+}
+.btn-add{
+    background-color: #049e81 !important;
+}
+.div{
+    border-color: currentColor;
+    border-width: 3px;
+    min-width: 500px;;
+}
+.select1{
+    margin-bottom: 5px !important;
+    margin-top: 5px !important;
+}
+.select2{
+    min-width: 350px;
+}
+.select-btn{
+    background-color: cyan;
+}
+.ih-navbar{
+    /*background-color: #343a40 !important;*/
+    /*height: 50px; #2a3f54*/
+}
+.row-table{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.td{
+    padding-right: 2rem !important;
+    padding-left: 2rem !important;
+}
+.div-extreme{
+    min-width: 440px !important;
+}
+.lbl-1{
+    margin-bottom: 0.1rem !important;
+    margin-top: 1rem !important;
+}
+.alertT{
+    margin-top: 1rem !important;
+    width: 350px;
+}
+
+
+
+
